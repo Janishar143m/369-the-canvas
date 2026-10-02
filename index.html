@@ -50,8 +50,11 @@
         <button class="filter" data-filter="drawing">Drawing & sketch</button>
         <button class="filter" data-filter="craft">Craft & creative</button>
         <button class="filter" data-filter="learning">Student gallery</button>
+        <button class="filter" data-filter="portrait">Portraits</button>
+        <button class="filter" data-filter="watercolour">Watercolour</button>
+        <button class="filter" data-filter="educational">Educational Art</button>
       </div>
-      <div class="gallery" id="gallery">
+      <div class="gallery-carousel" aria-label="Artwork carousel">\n        <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous artwork">‹</button>\n        <div class="gallery-track" id="gallery">
         <button class="art-card tall" data-category="painting" data-title="Colour in Progress" data-caption="A close-up of a colourful painting in the making."><img src="assets/artwork-01.jpeg" alt="Artist working on a colourful painting"><span class="art-label">01 <b>Painting</b></span></button>
         <button class="art-card" data-category="learning" data-title="Young Artists, Big Ideas" data-caption="Students proudly share their finished artwork."><img src="assets/artwork-02.jpeg" alt="Two students showing their colourful artwork"><span class="art-label">02 <b>Student gallery</b></span></button>
         <button class="art-card" data-category="painting" data-title="A Study in Colour" data-caption="Layering colour and shape to bring a scene to life."><img src="assets/artwork-04.jpeg" alt="Student painting a colourful scene"><span class="art-label">03 <b>Painting</b></span></button>
@@ -66,7 +69,25 @@
         <button class="art-card" data-category="painting" data-title="Art in the Making" data-caption="A close look at the hands-on painting process."><img src="assets/artwork-13.jpeg" alt="Artist painting a colourful picture"><span class="art-label">12 <b>Painting</b></span></button>
         <button class="art-card tall sand-art-card" data-category="craft" data-title="Sand Art — City of Creativity" data-caption="A detailed sand artwork celebrating imagination and the city."><img src="assets/sand-art-01.jpeg" alt="Artist creating a detailed city-themed sand artwork"><span class="art-label">13 <b>Sand art</b></span></button>
         <button class="art-card sand-art-card" data-category="craft" data-title="Sand Art — Heritage in Sand" data-caption="A heritage-inspired sand artwork, carefully shaped by hand."><img src="assets/sand-art-02.jpeg" alt="Artist creating a heritage-inspired sand artwork"><span class="art-label">14 <b>Sand art</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Child Portrait" data-caption="Portrait study in expressive colour."><img src="assets/new-portrait-child.jpeg" alt="Child Portrait"><span class="art-label">15 <b>Portrait</b></span></button>
+        <button class="art-card" data-category="watercolour" data-title="Watercolour Landscape" data-caption="A bright countryside landscape in watercolour."><img src="assets/new-watercolour-landscape.jpeg" alt="Watercolour Landscape"><span class="art-label">16 <b>Watercolour</b></span></button>
+        <button class="art-card" data-category="painting" data-title="Ganesha Study" data-caption="A detailed devotional painting study."><img src="assets/new-ganesha-painting.jpeg" alt="Ganesha Study"><span class="art-label">17 <b>painting</b></span></button>
+        <button class="art-card" data-category="watercolour" data-title="Heritage Landscape" data-caption="Architecture and nature captured in watercolour."><img src="assets/new-heritage-watercolour.jpeg" alt="Heritage Landscape"><span class="art-label">18 <b>Watercolour</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Classical Portrait" data-caption="A classical portrait study."><img src="assets/new-classical-portrait.jpeg" alt="Classical Portrait"><span class="art-label">19 <b>Portrait</b></span></button>
+        <button class="art-card" data-category="educational" data-title="Human Anatomy Study" data-caption="Educational artwork exploring human anatomy."><img src="assets/new-human-anatomy-1.jpeg" alt="Human Anatomy Study"><span class="art-label">20 <b>Educational Art</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Portrait Study" data-caption="A contemporary portrait painting."><img src="assets/new-young-portrait.jpeg" alt="Portrait Study"><span class="art-label">21 <b>Portrait</b></span></button>
+        <button class="art-card" data-category="educational" data-title="Anatomy Illustration" data-caption="Educational anatomy illustration."><img src="assets/new-human-anatomy-2.jpeg" alt="Anatomy Illustration"><span class="art-label">22 <b>Educational Art</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Character Portrait" data-caption="A character-focused portrait study."><img src="assets/new-elderly-portrait.jpeg" alt="Character Portrait"><span class="art-label">23 <b>Portrait</b></span></button>
+        <button class="art-card" data-category="educational" data-title="Medical Art" data-caption="A creative medical and anatomy artwork."><img src="assets/new-human-anatomy-3.jpeg" alt="Medical Art"><span class="art-label">24 <b>Educational Art</b></span></button>
+        <button class="art-card" data-category="watercolour" data-title="Waterfall Landscape" data-caption="A vibrant waterfall landscape in watercolour."><img src="assets/new-waterfall-watercolour.jpeg" alt="Waterfall Landscape"><span class="art-label">25 <b>Watercolour</b></span></button>
+        <button class="art-card" data-category="watercolour" data-title="Outdoor Scene" data-caption="A lively outdoor scene rendered in watercolour."><img src="assets/new-cycling-landscape.jpeg" alt="Outdoor Scene"><span class="art-label">26 <b>Watercolour</b></span></button>
+        <button class="art-card" data-category="watercolour" data-title="Bee Study" data-caption="A delicate framed study of bees and flowers."><img src="assets/new-framed-bees-watercolour.jpeg" alt="Bee Study"><span class="art-label">27 <b>Watercolour</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Portrait in Gold" data-caption="A portrait study with rich warm tones."><img src="assets/new-woman-portrait.jpeg" alt="Portrait in Gold"><span class="art-label">28 <b>Portrait</b></span></button>
+        <button class="art-card" data-category="portrait" data-title="Elder Portrait" data-caption="A character portrait with expressive brushwork."><img src="assets/new-elder-portrait.jpeg" alt="Elder Portrait"><span class="art-label">29 <b>Portrait</b></span></button>
       </div>
+        <button class="carousel-arrow carousel-next" type="button" aria-label="Next artwork">›</button>
+      </div>
+      <p class="carousel-hint">Use the arrows or swipe to explore</p>
     </section>
 
     <section class="practice section" id="practice">

@@ -59,3 +59,26 @@ document.addEventListener("keydown", event => {
   if (event.key === "ArrowRight") showCard(currentIndex + 1);
 });
 document.querySelector("#year").textContent = new Date().getFullYear();
+
+
+
+// Gallery carousel controls
+(() => {
+  const track = document.querySelector("#gallery");
+  const prev = document.querySelector(".carousel-prev");
+  const next = document.querySelector(".carousel-next");
+  if (!track || !prev || !next) return;
+
+  function cards() {
+    return Array.from(track.querySelectorAll(".art-card:not([hidden])"));
+  }
+  function move(dir) {
+    const items = cards();
+    if (!items.length) return;
+    const current = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+    const target = Math.max(0, Math.min(items.length - 1, current + dir));
+    items[target].scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+  }
+  prev.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+})();
