@@ -35,25 +35,38 @@ const filterButtons = document.querySelectorAll(".filter");
 
 function filterGallery(category) {
 
+  const selectedCategory =
+    (category || "").trim().toLowerCase();
+
   cards.forEach(card => {
 
-    const cardCategory = card.dataset.category;
+    const cardCategory =
+      (card.dataset.category || "").trim().toLowerCase();
 
-    if (category === "all" || cardCategory === category) {
+    const shouldShow =
+      selectedCategory === "all" ||
+      cardCategory === selectedCategory;
 
-      // SHOW
-      card.style.display = "flex";
+    if (shouldShow) {
+
+      card.hidden = false;
+      card.style.removeProperty("display");
 
     } else {
 
-      // HIDE
-      card.style.display = "none";
+      card.hidden = true;
+      card.style.setProperty(
+        "display",
+        "none",
+        "important"
+      );
 
     }
+
   });
 
 
-  // Reset gallery position
+  // Reset carousel position
   if (gallery) {
     gallery.scrollTo({
       left: 0,
@@ -68,23 +81,37 @@ filterButtons.forEach(button => {
 
   button.addEventListener("click", () => {
 
-    // Remove active from all buttons
+    // Remove active state
     filterButtons.forEach(btn => {
       btn.classList.remove("active");
     });
 
-    // Activate clicked button
+    // Add active state
     button.classList.add("active");
 
-    // Get category
-    const category = button.dataset.filter;
+    // Get selected category
+    const category =
+      button.getAttribute("data-filter");
 
-    // Apply filter
+    // Filter gallery
     filterGallery(category);
 
   });
 
 });
+
+
+// ---------- Get Visible Cards ----------
+function getVisibleCards() {
+
+  return cards.filter(card => {
+
+    return !card.hidden &&
+      getComputedStyle(card).display !== "none";
+
+  });
+
+}
 
 
 // ---------- Carousel ----------
@@ -95,27 +122,20 @@ const nextButton =
   document.querySelector(".carousel-next");
 
 
-function getVisibleCards() {
-
-  return cards.filter(card => {
-    return card.style.display !== "none";
-  });
-
-}
-
-
 function goToCard(direction) {
 
   if (!gallery) return;
 
-  const visible = getVisibleCards();
+  const visible =
+    getVisibleCards();
 
   if (visible.length === 0) return;
 
 
-  // Current gallery center
+  // Find card closest to gallery center
   const galleryCenter =
-    gallery.scrollLeft + gallery.clientWidth / 2;
+    gallery.scrollLeft +
+    gallery.clientWidth / 2;
 
 
   let currentIndex = 0;
@@ -125,7 +145,9 @@ function goToCard(direction) {
   visible.forEach((card, index) => {
 
     const cardCenter =
-      card.offsetLeft + card.offsetWidth / 2;
+      card.offsetLeft +
+      card.offsetWidth / 2;
+
 
     const distance =
       Math.abs(cardCenter - galleryCenter);
@@ -141,15 +163,15 @@ function goToCard(direction) {
   });
 
 
+  // Calculate next card
   let targetIndex =
     currentIndex + direction;
 
 
-  // Keep inside category
+  // Prevent going outside range
   if (targetIndex < 0) {
     targetIndex = 0;
   }
-
 
   if (targetIndex >= visible.length) {
     targetIndex = visible.length - 1;
@@ -176,9 +198,12 @@ function goToCard(direction) {
 // Previous button
 if (previousButton) {
 
-  previousButton.addEventListener("click", () => {
-    goToCard(-1);
-  });
+  previousButton.addEventListener(
+    "click",
+    () => {
+      goToCard(-1);
+    }
+  );
 
 }
 
@@ -186,9 +211,12 @@ if (previousButton) {
 // Next button
 if (nextButton) {
 
-  nextButton.addEventListener("click", () => {
-    goToCard(1);
-  });
+  nextButton.addEventListener(
+    "click",
+    () => {
+      goToCard(1);
+    }
+  );
 
 }
 
@@ -200,6 +228,8 @@ if (gallery) {
     "wheel",
     event => {
 
+      // Convert vertical wheel
+      // into horizontal scrolling
       if (
         Math.abs(event.deltaY) >
         Math.abs(event.deltaX)
@@ -234,6 +264,7 @@ if (lightbox) {
   const caption =
     lightbox.querySelector("figcaption");
 
+
   let lightboxIndex = 0;
 
 
@@ -266,7 +297,7 @@ if (lightbox) {
       card.querySelector("img");
 
 
-    if (image) {
+    if (image && lightboxImg) {
 
       lightboxImg.src =
         image.src;
@@ -334,7 +365,8 @@ if (lightbox) {
       "true"
     );
 
-    document.body.style.overflow = "";
+    document.body.style.overflow =
+      "";
 
   }
 
@@ -342,9 +374,12 @@ if (lightbox) {
   // Open artwork
   cards.forEach(card => {
 
-    card.addEventListener("click", () => {
-      openLightbox(card);
-    });
+    card.addEventListener(
+      "click",
+      () => {
+        openLightbox(card);
+      }
+    );
 
   });
 
