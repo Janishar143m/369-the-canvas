@@ -337,3 +337,7 @@ html, body { width:100%; min-width:0; }
   #work .carousel-next { right:-36px !important; }
   #work .carousel-arrow { width:32px !important; height:32px !important; font-size:22px !important; }
 }
+/* Fix category filtering */
+#work .gallery-track > .art-card[hidden] {
+  display: none !important;
+}
