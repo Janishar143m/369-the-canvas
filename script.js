@@ -82,3 +82,29 @@ document.querySelector("#year").textContent = new Date().getFullYear();
   prev.addEventListener("click", () => move(-1));
   next.addEventListener("click", () => move(1));
 })();
+
+// Gallery carousel controls
+(() => {
+  const track = document.querySelector("#gallery");
+  const prev = document.querySelector(".carousel-prev");
+  const next = document.querySelector(".carousel-next");
+  if (!track || !prev || !next) return;
+
+  const move = (direction) => {
+    const card = track.querySelector(".art-card:not([hidden])");
+    if (!card) return;
+    const distance = card.getBoundingClientRect().width + 20;
+    track.scrollBy({left: direction * distance, behavior: "smooth"});
+  };
+
+  prev.addEventListener("click", () => move(-1));
+  next.addEventListener("click", () => move(1));
+
+  // Mouse-wheel support over the gallery.
+  track.addEventListener("wheel", (event) => {
+    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      event.preventDefault();
+      track.scrollLeft += event.deltaY;
+    }
+  }, {passive:false});
+})();
