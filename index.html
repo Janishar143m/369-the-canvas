@@ -7,7 +7,7 @@
   <title>369 The Canvas — Art & Creative Learning</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <header class="site-header">
@@ -45,32 +45,32 @@
         <p class="section-description">From careful pencil details to bold colours and hands-on crafts, every piece tells its own story.</p>
       </div>
       <div class="filter-row" role="group" aria-label="Filter artwork">
-        <button class="filter active" data-filter="all">All work</button>
-        <button class="filter" data-filter="painting">Painting</button>
-        <button class="filter" data-filter="drawing">Drawing & sketch</button>
-        <button class="filter" data-filter="craft">Craft & creative</button>
-        <button class="filter" data-filter="learning">Student gallery</button>
-        <button class="filter" data-filter="portrait">Portraits</button>
-        <button class="filter" data-filter="watercolour">Watercolour</button>
-        <button class="filter" data-filter="educational">Educational Art</button>
+        <button type="button" class="filter active" data-filter="all">All work</button>
+        <button type="button" class="filter" data-filter="painting">Painting</button>
+        <button type="button" class="filter" data-filter="drawing">Drawing & sketch</button>
+        <button type="button" class="filter" data-filter="craft">Craft & creative</button>
+        <button type="button" class="filter" data-filter="learning">Student gallery</button>
+        <button type="button" class="filter" data-filter="portrait">Portraits</button>
+        <button type="button" class="filter" data-filter="watercolour">Watercolour</button>
+        <button type="button" class="filter" data-filter="educational">Educational Art</button>
       </div>
       <div class="gallery-carousel" aria-label="Artwork carousel">
         <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous artwork">‹</button>
         <div class="gallery-track" id="gallery">
-        <button class="art-card tall" data-category="painting" data-title="Colour in Progress" data-caption="A close-up of a colourful painting in the making."><img src="assets/artwork-01.jpeg" alt="Artist working on a colourful painting"><span class="art-label">01 <b>Painting</b></span></button>
+        <button type="button" class="art-card tall" data-category="painting" data-title="Colour in Progress" data-caption="A close-up of a colourful painting in the making."><img src="assets/artwork-01.jpeg" alt="Artist working on a colourful painting"><span class="art-label">01 <b>Painting</b></span></button>
         <button class="art-card" data-category="learning" data-title="Young Artists, Big Ideas" data-caption="Students proudly share their finished artwork."><img src="assets/artwork-02.jpeg" alt="Two students showing their colourful artwork"><span class="art-label">02 <b>Student gallery</b></span></button>
         <button class="art-card" data-category="painting" data-title="A Study in Colour" data-caption="Layering colour and shape to bring a scene to life."><img src="assets/artwork-04.jpeg" alt="Student painting a colourful scene"><span class="art-label">03 <b>Painting</b></span></button>
-        <button class="art-card wide" data-category="learning" data-title="Art Outdoors" data-caption="Students sketching from observation in an outdoor setting."><img src="assets/artwork-05.jpeg" alt="Students drawing outdoors on easels"><span class="art-label">04 <b>Student gallery</b></span></button>
+        <button type="button" class="art-card wide" data-category="learning" data-title="Art Outdoors" data-caption="Students sketching from observation in an outdoor setting."><img src="assets/artwork-05.jpeg" alt="Students drawing outdoors on easels"><span class="art-label">04 <b>Student gallery</b></span></button>
         <button class="art-card" data-category="drawing" data-title="Observational Drawing" data-caption="Learning to notice shapes, light and detail."><img src="assets/artwork-06.jpeg" alt="Students presenting landscape drawings"><span class="art-label">05 <b>Drawing</b></span></button>
-        <button class="art-card tall" data-category="learning" data-title="Creative Practice" data-caption="A student focused on developing a colourful artwork."><img src="assets/artwork-07.jpeg" alt="Student painting while seated on the floor"><span class="art-label">06 <b>In the studio</b></span></button>
+        <button type="button" class="art-card tall" data-category="learning" data-title="Creative Practice" data-caption="A student focused on developing a colourful artwork."><img src="assets/artwork-07.jpeg" alt="Student painting while seated on the floor"><span class="art-label">06 <b>In the studio</b></span></button>
         <button class="art-card" data-category="craft" data-title="Colourful Creations" data-caption="A collection of bright, playful student projects."><img src="assets/artwork-08.jpeg" alt="Students displaying colourful creative work"><span class="art-label">07 <b>Creative learning</b></span></button>
         <button class="art-card" data-category="craft" data-title="Little Works of Art" data-caption="Young artists share their colourful creations."><img src="assets/artwork-09.jpeg" alt="Children holding colourful artwork"><span class="art-label">08 <b>Craft & creative</b></span></button>
         <button class="art-card" data-category="learning" data-title="Guided Art Time" data-caption="A teacher supports a student through the creative process."><img src="assets/artwork-10.jpeg" alt="Teacher guiding a student during an art activity"><span class="art-label">09 <b>Teaching moments</b></span></button>
-        <button class="art-card wide" data-category="learning" data-title="A Day of Art" data-caption="Students work at easels in a leafy outdoor space."><img src="assets/artwork-11.jpeg" alt="Students painting at easels outdoors"><span class="art-label">10 <b>Student gallery</b></span></button>
+        <button type="button" class="art-card wide" data-category="learning" data-title="A Day of Art" data-caption="Students work at easels in a leafy outdoor space."><img src="assets/artwork-11.jpeg" alt="Students painting at easels outdoors"><span class="art-label">10 <b>Student gallery</b></span></button>
         <button class="art-card" data-category="drawing" data-title="Sketching from Life" data-caption="Practising observation and drawing from real surroundings."><img src="assets/artwork-12.jpeg" alt="Students sketching a scene at easels"><span class="art-label">11 <b>Live sketch</b></span></button>
         <button class="art-card" data-category="painting" data-title="Art in the Making" data-caption="A close look at the hands-on painting process."><img src="assets/artwork-13.jpeg" alt="Artist painting a colourful picture"><span class="art-label">12 <b>Painting</b></span></button>
-        <button class="art-card tall sand-art-card" data-category="craft" data-title="Sand Art — City of Creativity" data-caption="A detailed sand artwork celebrating imagination and the city."><img src="assets/sand-art-01.jpeg" alt="Artist creating a detailed city-themed sand artwork"><span class="art-label">13 <b>Sand art</b></span></button>
-        <button class="art-card sand-art-card" data-category="craft" data-title="Sand Art — Heritage in Sand" data-caption="A heritage-inspired sand artwork, carefully shaped by hand."><img src="assets/sand-art-02.jpeg" alt="Artist creating a heritage-inspired sand artwork"><span class="art-label">14 <b>Sand art</b></span></button>
+        <button type="button" class="art-card tall sand-art-card" data-category="craft" data-title="Sand Art — City of Creativity" data-caption="A detailed sand artwork celebrating imagination and the city."><img src="assets/sand-art-01.jpeg" alt="Artist creating a detailed city-themed sand artwork"><span class="art-label">13 <b>Sand art</b></span></button>
+        <button type="button" class="art-card sand-art-card" data-category="craft" data-title="Sand Art — Heritage in Sand" data-caption="A heritage-inspired sand artwork, carefully shaped by hand."><img src="assets/sand-art-02.jpeg" alt="Artist creating a heritage-inspired sand artwork"><span class="art-label">14 <b>Sand art</b></span></button>
         <button class="art-card" data-category="portrait" data-title="Child Portrait" data-caption="Portrait study in expressive colour."><img src="assets/new-portrait-child.jpeg" alt="Child Portrait"><span class="art-label">15 <b>Portrait</b></span></button>
         <button class="art-card" data-category="watercolour" data-title="Watercolour Landscape" data-caption="A bright countryside landscape in watercolour."><img src="assets/new-watercolour-landscape.jpeg" alt="Watercolour Landscape"><span class="art-label">16 <b>Watercolour</b></span></button>
         <button class="art-card" data-category="painting" data-title="Ganesha Study" data-caption="A detailed devotional painting study."><img src="assets/new-ganesha-painting.jpeg" alt="Ganesha Study"><span class="art-label">17 <b>painting</b></span></button>
@@ -120,6 +120,6 @@
   <footer><a class="brand" href="#home" aria-label="369 The Canvas home"><span>369 <b>THE CANVAS</b><small>ART · CREATE · INSPIRE</small></span></a><p>Made with creativity and a little colour. <span>© <span id="year"></span></span></p><a href="#home" class="back-top">Back to top ↑</a></footer>
 
   <div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Close image">×</button><button class="lightbox-prev" aria-label="Previous image">←</button><figure><img src="" alt=""><figcaption></figcaption></figure><button class="lightbox-next" aria-label="Next image">→</button></div>
-  <script src="script.js"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
