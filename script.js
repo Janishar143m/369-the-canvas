@@ -2,6 +2,7 @@
 // 369 THE CANVAS - MAIN SCRIPT
 // ========================================
 
+
 // ---------- Mobile Menu ----------
 const menuButton = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".nav");
@@ -23,6 +24,7 @@ if (menuButton && nav) {
 
 // ---------- Gallery ----------
 const gallery = document.querySelector("#gallery");
+
 const cards = gallery
   ? Array.from(gallery.querySelectorAll(".art-card"))
   : [];
@@ -31,45 +33,76 @@ const cards = gallery
 // ---------- Category Filter ----------
 const filterButtons = document.querySelectorAll(".filter");
 
-filterButtons.forEach(button => {
-  button.addEventListener("click", () => {
+function filterGallery(category) {
 
-    // Active button
-    filterButtons.forEach(btn => btn.classList.remove("active"));
-    button.classList.add("active");
+  cards.forEach(card => {
 
-    const category = button.dataset.filter;
+    const cardCategory = card.dataset.category;
 
-    // Show / hide artwork cards
-    cards.forEach(card => {
-      const cardCategory = card.dataset.category;
+    if (category === "all" || cardCategory === category) {
 
-      if (category === "all" || cardCategory === category) {
-        card.hidden = false;
-      } else {
-        card.hidden = true;
-      }
-    });
+      // SHOW
+      card.style.display = "flex";
 
-    // IMPORTANT:
-    // Reset carousel to the first image of the selected category
-    if (gallery) {
-      gallery.scrollTo({
-        left: 0,
-        behavior: "smooth"
-      });
+    } else {
+
+      // HIDE
+      card.style.display = "none";
+
     }
   });
+
+
+  // Reset gallery position
+  if (gallery) {
+    gallery.scrollTo({
+      left: 0,
+      behavior: "smooth"
+    });
+  }
+}
+
+
+// Category button click
+filterButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    // Remove active from all buttons
+    filterButtons.forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    // Activate clicked button
+    button.classList.add("active");
+
+    // Get category
+    const category = button.dataset.filter;
+
+    // Apply filter
+    filterGallery(category);
+
+  });
+
 });
 
 
 // ---------- Carousel ----------
-const previousButton = document.querySelector(".carousel-prev");
-const nextButton = document.querySelector(".carousel-next");
+const previousButton =
+  document.querySelector(".carousel-prev");
+
+const nextButton =
+  document.querySelector(".carousel-next");
+
 
 function getVisibleCards() {
-  return cards.filter(card => !card.hidden);
+
+  return cards.filter(card => {
+    return card.style.display !== "none";
+  });
+
 }
+
 
 function goToCard(direction) {
 
@@ -79,12 +112,15 @@ function goToCard(direction) {
 
   if (visible.length === 0) return;
 
-  // Find the card currently closest to the center
+
+  // Current gallery center
   const galleryCenter =
     gallery.scrollLeft + gallery.clientWidth / 2;
 
+
   let currentIndex = 0;
   let closestDistance = Infinity;
+
 
   visible.forEach((card, index) => {
 
@@ -94,48 +130,66 @@ function goToCard(direction) {
     const distance =
       Math.abs(cardCenter - galleryCenter);
 
+
     if (distance < closestDistance) {
+
       closestDistance = distance;
       currentIndex = index;
+
     }
+
   });
 
-  let targetIndex = currentIndex + direction;
 
-  // Keep within category
+  let targetIndex =
+    currentIndex + direction;
+
+
+  // Keep inside category
   if (targetIndex < 0) {
     targetIndex = 0;
   }
+
 
   if (targetIndex >= visible.length) {
     targetIndex = visible.length - 1;
   }
 
-  const target = visible[targetIndex];
+
+  const target =
+    visible[targetIndex];
+
 
   if (target) {
+
     target.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
       inline: "center"
     });
+
   }
+
 }
 
 
-// Previous
+// Previous button
 if (previousButton) {
+
   previousButton.addEventListener("click", () => {
     goToCard(-1);
   });
+
 }
 
 
-// Next
+// Next button
 if (nextButton) {
+
   nextButton.addEventListener("click", () => {
     goToCard(1);
   });
+
 }
 
 
@@ -146,9 +200,10 @@ if (gallery) {
     "wheel",
     event => {
 
-      // Convert vertical mouse wheel movement
-      // into horizontal gallery scrolling
-      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+      if (
+        Math.abs(event.deltaY) >
+        Math.abs(event.deltaX)
+      ) {
 
         event.preventDefault();
 
@@ -156,79 +211,131 @@ if (gallery) {
           left: event.deltaY,
           behavior: "auto"
         });
+
       }
 
     },
     { passive: false }
   );
+
 }
 
 
 // ---------- Lightbox ----------
-const lightbox = document.querySelector("#lightbox");
+const lightbox =
+  document.querySelector("#lightbox");
+
 
 if (lightbox) {
 
-  const lightboxImg = lightbox.querySelector("img");
-  const caption = lightbox.querySelector("figcaption");
+  const lightboxImg =
+    lightbox.querySelector("img");
+
+  const caption =
+    lightbox.querySelector("figcaption");
 
   let lightboxIndex = 0;
 
+
   function getLightboxCards() {
+
     return getVisibleCards();
+
   }
+
 
   function showLightboxCard(index) {
 
-    const visible = getLightboxCards();
+    const visible =
+      getLightboxCards();
+
 
     if (!visible.length) return;
 
+
     lightboxIndex =
-      (index + visible.length) % visible.length;
+      (index + visible.length) %
+      visible.length;
 
-    const card = visible[lightboxIndex];
 
-    const image = card.querySelector("img");
+    const card =
+      visible[lightboxIndex];
+
+
+    const image =
+      card.querySelector("img");
+
 
     if (image) {
-      lightboxImg.src = image.src;
-      lightboxImg.alt = image.alt;
+
+      lightboxImg.src =
+        image.src;
+
+      lightboxImg.alt =
+        image.alt;
+
     }
 
+
     if (caption) {
+
       caption.textContent =
         `${card.dataset.title || ""} — ${card.dataset.caption || ""}`;
+
     }
+
   }
+
 
   function openLightbox(card) {
 
-    const visible = getLightboxCards();
+    const visible =
+      getLightboxCards();
 
-    const index = visible.indexOf(card);
+
+    const index =
+      visible.indexOf(card);
+
 
     showLightboxCard(index);
 
-    lightbox.classList.add("open");
-    lightbox.setAttribute("aria-hidden", "false");
 
-    document.body.style.overflow = "hidden";
+    lightbox.classList.add("open");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+
+    document.body.style.overflow =
+      "hidden";
+
 
     const closeButton =
-      lightbox.querySelector(".lightbox-close");
+      lightbox.querySelector(
+        ".lightbox-close"
+      );
+
 
     if (closeButton) {
       closeButton.focus();
     }
+
   }
+
 
   function closeLightbox() {
 
     lightbox.classList.remove("open");
-    lightbox.setAttribute("aria-hidden", "true");
+
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
 
     document.body.style.overflow = "";
+
   }
 
 
@@ -242,72 +349,126 @@ if (lightbox) {
   });
 
 
-  // Close
+  // Close button
   const closeButton =
-    lightbox.querySelector(".lightbox-close");
+    lightbox.querySelector(
+      ".lightbox-close"
+    );
+
 
   if (closeButton) {
-    closeButton.addEventListener("click", closeLightbox);
+
+    closeButton.addEventListener(
+      "click",
+      closeLightbox
+    );
+
   }
 
 
   // Lightbox previous
   const lightboxPrevious =
-    lightbox.querySelector(".lightbox-prev");
+    lightbox.querySelector(
+      ".lightbox-prev"
+    );
+
 
   if (lightboxPrevious) {
-    lightboxPrevious.addEventListener("click", () => {
-      showLightboxCard(lightboxIndex - 1);
-    });
+
+    lightboxPrevious.addEventListener(
+      "click",
+      () => {
+        showLightboxCard(
+          lightboxIndex - 1
+        );
+      }
+    );
+
   }
 
 
   // Lightbox next
   const lightboxNext =
-    lightbox.querySelector(".lightbox-next");
+    lightbox.querySelector(
+      ".lightbox-next"
+    );
+
 
   if (lightboxNext) {
-    lightboxNext.addEventListener("click", () => {
-      showLightboxCard(lightboxIndex + 1);
-    });
+
+    lightboxNext.addEventListener(
+      "click",
+      () => {
+        showLightboxCard(
+          lightboxIndex + 1
+        );
+      }
+    );
+
   }
 
 
   // Click outside image
-  lightbox.addEventListener("click", event => {
+  lightbox.addEventListener(
+    "click",
+    event => {
 
-    if (event.target === lightbox) {
-      closeLightbox();
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+
     }
-
-  });
+  );
 
 
   // Keyboard controls
-  document.addEventListener("keydown", event => {
+  document.addEventListener(
+    "keydown",
+    event => {
 
-    if (!lightbox.classList.contains("open")) return;
+      if (
+        !lightbox.classList.contains("open")
+      ) {
+        return;
+      }
 
-    if (event.key === "Escape") {
-      closeLightbox();
+
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+
+
+      if (event.key === "ArrowLeft") {
+
+        showLightboxCard(
+          lightboxIndex - 1
+        );
+
+      }
+
+
+      if (event.key === "ArrowRight") {
+
+        showLightboxCard(
+          lightboxIndex + 1
+        );
+
+      }
+
     }
-
-    if (event.key === "ArrowLeft") {
-      showLightboxCard(lightboxIndex - 1);
-    }
-
-    if (event.key === "ArrowRight") {
-      showLightboxCard(lightboxIndex + 1);
-    }
-
-  });
+  );
 
 }
 
 
 // ---------- Footer Year ----------
-const yearElement = document.querySelector("#year");
+const yearElement =
+  document.querySelector("#year");
+
 
 if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
+
+  yearElement.textContent =
+    new Date().getFullYear();
+
 }
