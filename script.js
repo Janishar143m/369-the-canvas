@@ -528,3 +528,240 @@ document.addEventListener("DOMContentLoaded", () => {
 
   applyFilter("all");
 });
+
+
+/* =========================================================
+   SUPABASE REVIEWS
+   ========================================================= */
+
+(() => {
+  const SUPABASE_URL = "https://keetiwqtraalaxtdpnvq.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_YxbJDO6diEB4wzFcvwxA9w_VC3fcvlj";
+
+  if (!window.supabase || !SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
+    return;
+  }
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const reviewList = document.querySelector("#review-list");
+  const reviewForm = document.querySelector("#review-form");
+  const reviewMessage = document.querySelector("#review-form-message");
+  const averageElement = document.querySelector("#reviews-average");
+  const starsElement = document.querySelector("#reviews-stars");
+  const countElement = document.querySelector("#reviews-count");
+
+  if (!reviewList || !reviewForm) return;
+
+  function renderStars(rating) {
+    const value = Math.max(0, Math.min(5, Number(rating) || 0));
+    return "★".repeat(value) + "☆".repeat(5 - value);
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    return date.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+  }
+
+  function createReviewCard(review) {
+    const article = document.createElement("article");
+    article.className = "review-card";
+
+    const stars = document.createElement("div");
+    stars.className = "review-card-stars";
+    stars.textContent = renderStars(review.rating);
+    stars.setAttribute(
+      "aria-label",
+      `${review.rating} out of 5 stars`
+    );
+
+    const comment = document.createElement("p");
+    comment.className = "review-card-comment";
+    comment.textContent = review.comment;
+
+    const footer = document.createElement("div");
+    footer.className = "review-card-footer";
+
+    const person = document.createElement("div");
+
+    const name = document.createElement("span");
+    name.className = "review-card-name";
+    name.textContent = review.name;
+
+    const role = document.createElement("span");
+    role.className = "review-card-role";
+    role.textContent = review.role || "Parent";
+
+    person.append(name, role);
+
+    const date = document.createElement("span");
+    date.className = "review-card-date";
+    date.textContent = formatDate(review.created_at);
+
+    footer.append(person, date);
+    article.append(stars, comment, footer);
+
+    return article;
+  }
+
+  async function loadReviews() {
+    reviewList.replaceChildren();
+
+    const loading = document.createElement("p");
+    loading.className = "review-loading";
+    loading.textContent = "Loading reviews…";
+    reviewList.appendChild(loading);
+
+    const { data, error } = await supabaseClient
+      .from("reviews")
+      .select("name, role, rating, comment, created_at")
+      .eq("status", "approved")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Unable to load reviews:", error);
+
+      reviewList.replaceChildren();
+
+      const errorMessage = document.createElement("p");
+      errorMessage.className = "review-empty";
+      errorMessage.textContent = "Reviews will appear here soon.";
+      reviewList.appendChild(errorMessage);
+
+      if (averageElement) averageElement.textContent = "—";
+      if (starsElement) starsElement.textContent = "";
+      if (countElement) countElement.textContent = "No reviews yet";
+
+      return;
+    }
+
+    reviewList.replaceChildren();
+
+    if (!data || data.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "review-empty";
+      empty.textContent = "Be the first to share your experience.";
+      reviewList.appendChild(empty);
+
+      if (averageElement) averageElement.textContent = "—";
+      if (starsElement) starsElement.textContent = "";
+      if (countElement) countElement.textContent = "No reviews yet";
+
+      return;
+    }
+
+    data.forEach((review) => {
+      reviewList.appendChild(createReviewCard(review));
+    });
+
+    const average =
+      data.reduce(
+        (sum, review) => sum + Number(review.rating || 0),
+        0
+      ) / data.length;
+
+    if (averageElement) {
+      averageElement.textContent = average.toFixed(1);
+    }
+
+    if (starsElement) {
+      starsElement.textContent = renderStars(Math.round(average));
+      starsElement.setAttribute(
+        "aria-label",
+        `${average.toFixed(1)} out of 5 average rating`
+      );
+    }
+
+    if (countElement) {
+      countElement.textContent =
+        `${data.length} ${data.length === 1 ? "review" : "reviews"}`;
+    }
+  }
+
+  reviewForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton =
+      reviewForm.querySelector("button[type='submit']");
+
+    const formData = new FormData(reviewForm);
+
+    const name =
+      String(formData.get("name") || "").trim();
+
+    const role =
+      String(formData.get("role") || "Parent");
+
+    const rating =
+      Number(formData.get("rating"));
+
+    const comment =
+      String(formData.get("comment") || "").trim();
+
+    if (
+      !name ||
+      !comment ||
+      !rating ||
+      rating < 1 ||
+      rating > 5
+    ) {
+      reviewMessage.textContent =
+        "Please complete your name, rating and review.";
+
+      reviewMessage.classList.add("error");
+      return;
+    }
+
+    submitButton.disabled = true;
+
+    reviewMessage.classList.remove("error");
+    reviewMessage.textContent =
+      "Submitting your review…";
+
+    const { error } = await supabaseClient
+      .from("reviews")
+      .insert({
+        name,
+        role,
+        rating,
+        comment,
+        status: "pending"
+      });
+
+    submitButton.disabled = false;
+
+    if (error) {
+      console.error(
+        "Unable to submit review:",
+        error
+      );
+
+      reviewMessage.textContent =
+        "Sorry, we couldn't submit your review. Please try again.";
+
+      reviewMessage.classList.add("error");
+      return;
+    }
+
+    reviewForm.reset();
+
+    reviewMessage.classList.remove("error");
+
+    reviewMessage.textContent =
+      "Thank you for sharing your experience! Your review will be published after approval.";
+  });
+
+  loadReviews();
+})();

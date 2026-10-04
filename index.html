@@ -14,7 +14,7 @@
     <a class="brand" href="#home" aria-label="369 The Canvas home"><span>369 <b>THE CANVAS</b><small>ART · CREATE · INSPIRE</small></span></a>
     <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     <nav class="nav">
-      <a href="#work">Artwork</a><a href="#practice">What I Do</a><a href="#teaching">Teaching</a><a href="#contact" class="nav-cta">Get in touch <span>↗</span></a>
+      <a href="#work">Artwork</a><a href="#practice">What I Do</a><a href="#teaching">Teaching</a><a href="#reviews">Reviews</a><a href="#contact" class="nav-cta">Get in touch <span>↗</span></a>
     </nav>
   </header>
 
@@ -107,6 +107,65 @@
       <div class="teaching-copy"><p class="eyebrow">ART IS FOR EVERYONE</p><h2>Helping creativity<br><em>find its way.</em></h2><p>Art classes are about more than the finished picture. They are a chance to experiment, build confidence, practise patience and discover the joy of making something your own.</p><p>Through demonstrations and hands-on activities, learners are encouraged to explore materials, trust their ideas and enjoy the process.</p><a class="text-link" href="#contact">Let’s create together <span>↗</span></a></div>
     </section>
 
+
+    <section class="reviews section" id="reviews">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">REVIEWS & EXPERIENCES</p>
+          <h2>What learners<br><em>and families say.</em></h2>
+        </div>
+        <div class="reviews-summary" aria-label="Average review rating">
+          <strong id="reviews-average">—</strong>
+          <span id="reviews-stars" aria-hidden="true"></span>
+          <small id="reviews-count">No reviews yet</small>
+        </div>
+      </div>
+
+      <div class="reviews-layout">
+        <div class="review-list" id="review-list" aria-live="polite">
+          <p class="review-loading">Loading reviews…</p>
+        </div>
+
+        <form class="review-form" id="review-form">
+          <p class="review-form-title">SHARE YOUR EXPERIENCE</p>
+
+          <label>
+            Name
+            <input type="text" name="name" maxlength="80" required autocomplete="name">
+          </label>
+
+          <label>
+            I am a
+            <select name="role" required>
+              <option value="Parent">Parent</option>
+              <option value="Student">Student</option>
+              <option value="Learner">Learner</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <fieldset class="rating-field">
+            <legend>Rating</legend>
+            <div class="rating-options">
+              <label><input type="radio" name="rating" value="1" required><span>★</span></label>
+              <label><input type="radio" name="rating" value="2"><span>★★</span></label>
+              <label><input type="radio" name="rating" value="3"><span>★★★</span></label>
+              <label><input type="radio" name="rating" value="4"><span>★★★★</span></label>
+              <label><input type="radio" name="rating" value="5"><span>★★★★★</span></label>
+            </div>
+          </fieldset>
+
+          <label>
+            Your review
+            <textarea name="comment" maxlength="1000" rows="5" required></textarea>
+          </label>
+
+          <button class="button button-dark review-submit" type="submit">Submit Review <span>↗</span></button>
+          <p class="review-form-message" id="review-form-message" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
     <section class="contact section" id="contact">
       <div><p class="eyebrow">HAVE AN IDEA?</p><h2>Let’s make<br><em>something lovely.</em></h2><p>For art classes, workshops, collaborations or to learn more about the work, get in touch.</p></div>
       <div class="contact-card"><p>READY TO CONNECT?</p><h3>Every great idea<br>starts with a hello.</h3><div class="contact-socials" aria-label="Contact links">
@@ -120,6 +179,7 @@
   <footer><a class="brand" href="#home" aria-label="369 The Canvas home"><span>369 <b>THE CANVAS</b><small>ART · CREATE · INSPIRE</small></span></a><p>Made with creativity and a little colour. <span>© <span id="year"></span></span></p><a href="#home" class="back-top">Back to top ↑</a></footer>
 
   <div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Close image">×</button><button class="lightbox-prev" aria-label="Previous image">←</button><figure><img src="" alt=""><figcaption></figcaption></figure><button class="lightbox-next" aria-label="Next image">→</button></div>
-  <script src="script.js?v=4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

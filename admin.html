@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>369 The Canvas — Owner Reviews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="login-card" id="login-view">
+      <p class="eyebrow">369 THE CANVAS</p>
+      <h1>Owner review dashboard</h1>
+      <p class="muted">Sign in to approve or reject visitor reviews.</p>
+      <form id="login-form">
+        <label>Email<input id="login-email" type="email" value="369thecanvas@gmail.com" required autocomplete="username"></label>
+        <label>Password<input id="login-password" type="password" required autocomplete="current-password"></label>
+        <button type="submit">Sign in</button>
+        <p id="login-message" class="message"></p>
+      </form>
+    </section>
+
+    <section class="dashboard" id="dashboard-view" hidden>
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">369 THE CANVAS</p>
+          <h1>Reviews</h1>
+        </div>
+        <button id="logout-button" class="secondary">Log out</button>
+      </header>
+
+      <div class="stats">
+        <div><span>Pending</span><strong id="pending-count">0</strong></div>
+        <div><span>Approved</span><strong id="approved-count">0</strong></div>
+        <div><span>Rejected</span><strong id="rejected-count">0</strong></div>
+      </div>
+
+      <nav class="tabs" aria-label="Review status">
+        <button class="tab active" data-status="pending">Pending</button>
+        <button class="tab" data-status="approved">Approved</button>
+        <button class="tab" data-status="rejected">Rejected</button>
+        <button class="tab" data-status="all">All</button>
+      </nav>
+
+      <div id="admin-message" class="message"></div>
+      <section id="review-admin-list" class="admin-list"></section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
